@@ -136,7 +136,7 @@ def divider_sky(c, w=560, h=44):
         f'<g transform="translate({x:.0f},{rng.uniform(5, h - 5):.0f})"><g class="gl" style="animation-duration:'
         f'{rng.uniform(8, 16):.1f}s;animation-delay:-{rng.uniform(0, 16):.1f}s">'
         f'<path d="{STAR.format(s=round(3 + 3 * rng.random() ** 2, 1))}" fill="{c["deep"]}"/></g></g>'
-        for x in [w * (i + rng.uniform(.2, .8)) / 16 for i in range(16)])
+        for x in [min(max(w * (i + .5 + rng.uniform(-.9, .9)) / 16, 8), w - 8) for i in range(16)])
     # (y start, y end, delay s) within a 9s cycle; each streak is visible for ~1.6s
     streaks = [(4, 20, 0), (10, 30, 4.6)]
     stars = "".join(
