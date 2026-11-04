@@ -109,6 +109,64 @@ def hero(mode, c):
                f'<g text-anchor="middle">{lines}</g>')
 
 
+STAR = "M0,-{s} Q0,0 {s},0 Q0,0 0,{s} Q0,0 -{s},0 Q0,0 0,-{s}Z"  # 4-point sparkle
+TWINKLE = ("@keyframes tw{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.6)}}"
+           ".tw{animation:tw 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}")
+
+
+def cloud(c, opacity=.85):
+    return (f'<g fill="{c["accent"]}" opacity="{opacity}"><circle cx="-6" cy="2" r="5"/><circle cx="1" cy="-2" r="7"/>'
+            f'<circle cx="8" cy="2" r="5"/><rect x="-6" y="2" width="14" height="5"/></g>')
+
+
+def divider_sparkle(c, w=560, h=44):
+    """Twinkling sparkles in a wave around a big center star; clouds drift across."""
+    side = ["d", "s", "d", "S", "d", "s", "d", "d", "S", "d", "s", "d"]  # outer -> center
+    items = side + ["B"] + side[::-1]
+    step = w / (len(items) + 1)
+    body = []
+    for i, k in enumerate(items):
+        x, delay = step * (i + 1), abs(i - len(side)) * .18
+        fill = c["deep"] if k in "SB" else c["accent"]
+        shape = (f'<circle r="1.8" fill="{fill}"/>' if k == "d" else
+                 f'<path d="{STAR.format(s={"s": 4.5, "S": 7, "B": 10}[k])}" fill="{fill}"/>')
+        body.append(f'<g transform="translate({x:.1f},{h / 2})"><g class="tw" style="animation-delay:{delay:.2f}s">{shape}</g></g>')
+    # (y, scale, seconds per crossing, start offset as fraction of crossing)
+    flock = [(13, 1.0, 26, 0), (31, .75, 34, .3), (16, .6, 30, .55), (29, .9, 38, .75), (12, .7, 28, .9)]
+    edge = (f'<defs><linearGradient id="eg"><stop offset="0" stop-color="#fff" stop-opacity="0"/>'
+            f'<stop offset=".12" stop-color="#fff"/><stop offset=".88" stop-color="#fff"/>'
+            f'<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+            f'<mask id="em"><rect width="{w}" height="{h}" fill="url(#eg)"/></mask></defs>')
+    clouds = "".join(
+        f'<g transform="translate(0,{y})"><g class="fly" style="animation-duration:{t}s;'
+        f'animation-delay:-{t * off:.1f}s"><g transform="scale({k})">{cloud(c, .9)}</g></g></g>' for y, k, t, off in flock)
+    fly = f"@keyframes fly{{from{{transform:translateX(-30px)}}to{{transform:translateX({w + 30}px)}}}}.fly{{animation:fly linear infinite}}"
+    return svg(w, h, TWINKLE + fly, edge + "".join(body) + f'<g mask="url(#em)">{clouds}</g>')
+
+
+def divider_kaomoji(c, w=560, h=40):
+    """Drifting clouds and glowing moons around a blinking kaomoji."""
+    cloud_ = cloud(c)
+    moon = f'<circle r="7" fill="{c["deep"]}" mask="url(#cr)"/>'
+    dot = f'<circle r="1.6" fill="{c["accent"]}"/>'
+    left = [(60, dot), (88, cloud_), (118, dot), (136, dot), (162, moon), (186, dot)]
+    body = ['<defs><mask id="cr"><circle r="7" fill="#fff"/><circle cx="3.5" cy="-2.5" r="6" fill="#000"/></mask></defs>']
+    for x, g in left:
+        for xx, flip in ((x, 1), (w - x, -1)):
+            cls = "dr" if g is cloud_ else "gl" if g is moon else "tw"
+            body.append(f'<g transform="translate({xx},{h / 2}) scale({flip},1)"><g class="{cls}" '
+                        f'style="animation-delay:{(x % 7) * .3:.1f}s">{g}</g></g>')
+    face = (f'<text class="k" x="{w / 2}" y="{h / 2 + 7}">(˶ᵔ ᵕ ᵔ˶)</text>'
+            f'<text class="k shut" x="{w / 2}" y="{h / 2 + 7}">(˶˘ ᵕ ˘˶)</text>')
+    style = (TWINKLE + f".k{{font-size:22px;fill:{c['ink']};text-anchor:middle}}"
+             ".k{animation:open 4s steps(1) infinite}.shut{animation-name:shut}"
+             "@keyframes open{0%,90%{opacity:1}91%,96%{opacity:0}97%{opacity:1}}"
+             "@keyframes shut{0%,90%{opacity:0}91%,96%{opacity:1}97%{opacity:0}}"
+             ".dr{animation:dr 6s ease-in-out infinite}@keyframes dr{0%,100%{transform:translateX(-4px)}50%{transform:translateX(4px)}}"
+             ".gl{animation:gl 3s ease-in-out infinite}@keyframes gl{0%,100%{opacity:1}50%{opacity:.45}}")
+    return svg(w, h, style, "".join(body) + face)
+
+
 def write(name, s):
     (OUT / name).write_text(s)
     print("wrote", OUT / name)
@@ -122,3 +180,5 @@ for mode, c in P.items():
         write(f"head-{key}-{mode}.svg", header_a(label, title, c))
     for key, title in HEADERS_C.items():
         write(f"head-{key}-{mode}.svg", header_c(title, c))
+    write(f"div-sparkle-{mode}.svg", divider_sparkle(c))
+    write(f"div-kaomoji-{mode}.svg", divider_kaomoji(c))
