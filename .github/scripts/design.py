@@ -8,12 +8,14 @@ GitHub renders them identically everywhere. The hero wraps assets/title-*.svg,
 so run title.py first if the title lines or colors change.
 """
 import base64
+import hashlib
 import random
 import re
 import urllib.request
 from pathlib import Path
 
-OUT = Path(__file__).resolve().parents[2] / "assets"
+ROOT = Path(__file__).resolve().parents[2]
+OUT = ROOT / "assets"
 
 # Keep in sync with title.py COLORS and the snake workflow.
 P = {
@@ -181,6 +183,17 @@ def divider_kaomoji(c, w=560, h=40):
     return svg(w, h, style, "".join(body) + face)
 
 
+def stamp_readme():
+    """Append ?v=<content hash> to README asset links so browsers and GitHub's cache refetch changed files."""
+    readme = ROOT / "README.md"
+
+    def bump(m):
+        digest = hashlib.sha1((ROOT / m[1]).read_bytes()).hexdigest()[:8]
+        return f"{m[1]}?v={digest}"
+
+    readme.write_text(re.sub(r"(assets/[\w.-]+\.(?:svg|webp))(?:\?v=\w+)?", bump, readme.read_text()))
+
+
 def write(name, s):
     (OUT / name).write_text(s)
     print("wrote", OUT / name)
@@ -198,3 +211,4 @@ if __name__ == "__main__":
             write(f"head-{key}-{mode}.svg", header_c(title, c))
         write(f"div-sky-{mode}.svg", divider_sky(c))
         write(f"div-kaomoji-{mode}.svg", divider_kaomoji(c))
+    stamp_readme()
