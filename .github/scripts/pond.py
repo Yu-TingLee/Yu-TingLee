@@ -13,9 +13,9 @@ from itertools import cycle
 from PIL import Image, ImageDraw, ImageFont, ImageSequence
 
 MARGIN = 34  # ring band width around the koi, px
-WIDTH = 795  # pond width = README slideshow table (2 x 370px imgs + cell padding/borders)
+WIDTH = 795  # pond width = README slideshow row (2 x 395px imgs + gap)
 SIZE = 18  # font size, px
-COLOR = (122, 162, 196, 255)  # soft pond blue, readable on light + dark
+COLOR = (226, 140, 112, 255)  # coral, matches design.py palette; readable on light + dark
 TOP = "⋆ ˚ ° ∿ ~ ∿ ° ˚ ✧ ˚ °".split()  # mirrored around a center ☁
 SIDE = "˚ ° ∿ ⋆ ° ˚ ~ ✧".split()
 BOTTOM_FILL = "∿ ~".split()

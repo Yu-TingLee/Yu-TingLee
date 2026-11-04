@@ -16,7 +16,7 @@ LINES = [
     "Making LLMs go brrr on GPUs!!!",
     "It's all just linear algebra ✨",
 ]
-COLORS = {"dark": "FFC6B3", "light": "F4A28C"}
+COLORS = {"dark": "FFC0A6", "light": "EC8A68"}
 TYPE_MS, HOLD_MS, DELETE_MS = 2400, 1000, 1800
 
 OUT = Path(__file__).resolve().parents[2] / "assets"
