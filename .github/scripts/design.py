@@ -25,7 +25,7 @@ P = {
 HERO_LINES = ["🫧 LLM inference · CUDA kernels · Quantum ML", "💻 Python · C++ · CUDA   📷 Photography"]
 BUTTONS = ["LinkedIn", "Email"]
 HEADERS_A = {"writing": ("writing", "Thoughts unbounded"), "photos": ("photography", "Catching light")}
-HEADERS_C = {"pond": "Swimming in commits"}
+HEADERS_C = {"snack": "Snacking on commits"}
 
 ICONS = {
     "Website": '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',
@@ -135,7 +135,7 @@ def divider_sky(c, w=560, h=44):
     twinkles = "".join(
         f'<g transform="translate({x:.0f},{rng.uniform(5, h - 5):.0f})"><g class="gl" style="animation-duration:'
         f'{rng.uniform(8, 16):.1f}s;animation-delay:-{rng.uniform(0, 16):.1f}s">'
-        f'<path d="{STAR.format(s=round(1.5 + 5 * rng.random() ** 2, 1))}" fill="{c["deep"]}"/></g></g>'
+        f'<path d="{STAR.format(s=round(3 + 5 * rng.random() ** 2, 1))}" fill="{c["deep"]}"/></g></g>'
         for x in [w * (i + rng.uniform(.2, .8)) / 16 for i in range(16)])
     # (y start, y end, delay s) within a 9s cycle; each streak is visible for ~1.6s
     streaks = [(4, 20, 0), (10, 30, 4.6)]
@@ -146,7 +146,7 @@ def divider_sky(c, w=560, h=44):
     css = (f"@keyframes fly{{from{{transform:translateX(-30px)}}to{{transform:translateX({w + 30}px)}}}}"
            ".fly{animation:fly linear infinite}"
            ".sh{animation:sh0 9s ease-in infinite;opacity:0}"
-           "@keyframes gl{0%,45%,100%{opacity:.2;transform:scale(.7)}72%{opacity:1;transform:scale(1.1)}}"
+           "@keyframes gl{0%,40%,100%{opacity:.45;transform:scale(.8)}70%{opacity:1;transform:scale(1.2)}}"
            ".gl{animation:gl ease-in-out infinite;transform-box:fill-box;transform-origin:center}"
            + "".join(f"@keyframes sh{i}{{0%{{transform:translate(-20px,{y0}px) rotate(2deg);opacity:0}}3%{{opacity:1}}"
                      f"18%{{transform:translate({w * .85:.0f}px,{y1}px) rotate(2deg);opacity:0}}100%{{opacity:0}}}}"
