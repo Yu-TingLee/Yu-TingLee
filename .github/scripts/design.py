@@ -94,7 +94,7 @@ def hero(mode, c):
                ".b3{animation:f1 22s ease-in-out infinite reverse}"
                "@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,18px)}}"
                "@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-14px)}}"
-               + MONO + f".m{{font-family:CM,monospace;font-size:15px;fill:{c['muted']}}}",
+               + MONO + f".m{{font-family:CM,monospace;font-size:16px;fill:{c['ink']}}}",
                f'<defs><radialGradient id="bg" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="{c["soft"]}"/>'
                f'<stop offset="1" stop-color="{c["bg"]}"/></radialGradient>'
                f'<filter id="bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45"/></filter>'
