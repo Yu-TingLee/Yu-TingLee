@@ -1,5 +1,10 @@
 <p align="center">
-  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Cutive+Mono&pause=1000&color=F4A28C&center=true&vCenter=true&width=450&lines=YT's+space;Making+LLMs+go+brrr+on+GPUs!!!;It's+all+just+linear+algebra+%E2%9C%A8" alt="YT's space" /></a>
+  <a href="https://git.io/typing-svg">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg" />
+      <img src="assets/title-light.svg" alt="I need more tokenzzzz... (✖╭╮✖)" />
+    </picture>
+  </a>
 </p>
 
 <p align="center">
