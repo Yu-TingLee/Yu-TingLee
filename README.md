@@ -7,7 +7,7 @@
   <a href="mailto:ann263d123@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-email-dark.svg" /><img src="assets/btn-email-light.svg" height="44" alt="Email" /></picture></a>
 </p>
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/div-sparkle-dark.svg" /><img src="assets/div-sparkle-light.svg" width="560" alt="sparkles" /></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/div-sky-dark.svg" /><img src="assets/div-sky-light.svg" width="560" alt="clouds and shooting stars" /></picture></p>
 
 <p align="center">
   <picture><source media="(prefers-color-scheme: dark)" srcset="assets/head-writing-dark.svg" /><img src="assets/head-writing-light.svg" width="395" alt="Thoughts unbounded" /></picture>

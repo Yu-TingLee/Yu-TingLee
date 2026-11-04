@@ -119,29 +119,32 @@ def cloud(c, opacity=.85):
             f'<circle cx="8" cy="2" r="5"/><rect x="-6" y="2" width="14" height="5"/></g>')
 
 
-def divider_sparkle(c, w=560, h=44):
-    """Twinkling sparkles in a wave around a big center star; clouds drift across."""
-    side = ["d", "s", "d", "S", "d", "s", "d", "d", "S", "d", "s", "d"]  # outer -> center
-    items = side + ["B"] + side[::-1]
-    step = w / (len(items) + 1)
-    body = []
-    for i, k in enumerate(items):
-        x, delay = step * (i + 1), abs(i - len(side)) * .18
-        fill = c["deep"] if k in "SB" else c["accent"]
-        shape = (f'<circle r="1.8" fill="{fill}"/>' if k == "d" else
-                 f'<path d="{STAR.format(s={"s": 4.5, "S": 7, "B": 10}[k])}" fill="{fill}"/>')
-        body.append(f'<g transform="translate({x:.1f},{h / 2})"><g class="tw" style="animation-delay:{delay:.2f}s">{shape}</g></g>')
+def divider_sky(c, w=560, h=44):
+    """Clouds drifting across, with shooting stars streaking past now and then."""
     # (y, scale, seconds per crossing, start offset as fraction of crossing)
     flock = [(13, 1.0, 26, 0), (31, .75, 34, .3), (16, .6, 30, .55), (29, .9, 38, .75), (12, .7, 28, .9)]
-    edge = (f'<defs><linearGradient id="eg"><stop offset="0" stop-color="#fff" stop-opacity="0"/>'
-            f'<stop offset=".12" stop-color="#fff"/><stop offset=".88" stop-color="#fff"/>'
-            f'<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
-            f'<mask id="em"><rect width="{w}" height="{h}" fill="url(#eg)"/></mask></defs>')
     clouds = "".join(
         f'<g transform="translate(0,{y})"><g class="fly" style="animation-duration:{t}s;'
         f'animation-delay:-{t * off:.1f}s"><g transform="scale({k})">{cloud(c, .9)}</g></g></g>' for y, k, t, off in flock)
-    fly = f"@keyframes fly{{from{{transform:translateX(-30px)}}to{{transform:translateX({w + 30}px)}}}}.fly{{animation:fly linear infinite}}"
-    return svg(w, h, TWINKLE + fly, edge + "".join(body) + f'<g mask="url(#em)">{clouds}</g>')
+    # (y start, y end, delay s) within a 9s cycle; each streak is visible for ~1.6s
+    streaks = [(4, 20, 0), (10, 30, 4.6)]
+    stars = "".join(
+        f'<g class="sh" style="animation-name:sh{i};animation-delay:{d}s">'
+        f'<rect x="-60" y="-.8" width="60" height="1.6" rx=".8" fill="url(#sg)"/>'
+        f'<path d="{STAR.format(s=3.2)}" fill="{c["deep"]}"/></g>' for i, (y0, y1, d) in enumerate(streaks))
+    css = (f"@keyframes fly{{from{{transform:translateX(-30px)}}to{{transform:translateX({w + 30}px)}}}}"
+           ".fly{animation:fly linear infinite}"
+           ".sh{animation:sh0 9s ease-in infinite;opacity:0}"
+           + "".join(f"@keyframes sh{i}{{0%{{transform:translate(-20px,{y0}px) rotate(2deg);opacity:0}}3%{{opacity:1}}"
+                     f"18%{{transform:translate({w * .85:.0f}px,{y1}px) rotate(2deg);opacity:0}}100%{{opacity:0}}}}"
+                     for i, (y0, y1, _) in enumerate(streaks)))
+    defs = (f'<defs><linearGradient id="eg"><stop offset="0" stop-color="#fff" stop-opacity="0"/>'
+            f'<stop offset=".12" stop-color="#fff"/><stop offset=".88" stop-color="#fff"/>'
+            f'<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+            f'<mask id="em"><rect width="{w}" height="{h}" fill="url(#eg)"/></mask>'
+            f'<linearGradient id="sg"><stop offset="0" stop-color="{c["deep"]}" stop-opacity="0"/>'
+            f'<stop offset="1" stop-color="{c["deep"]}"/></linearGradient></defs>')
+    return svg(w, h, css, defs + f'<g mask="url(#em)">{clouds}{stars}</g>')
 
 
 def divider_kaomoji(c, w=560, h=40):
@@ -172,13 +175,15 @@ def write(name, s):
     print("wrote", OUT / name)
 
 
-for mode, c in P.items():
-    write(f"hero-{mode}.svg", hero(mode, c))
-    for label in BUTTONS:
-        write(f"btn-{label.lower()}-{mode}.svg", button(label, c))
-    for key, (label, title) in HEADERS_A.items():
-        write(f"head-{key}-{mode}.svg", header_a(label, title, c))
-    for key, title in HEADERS_C.items():
-        write(f"head-{key}-{mode}.svg", header_c(title, c))
-    write(f"div-sparkle-{mode}.svg", divider_sparkle(c))
-    write(f"div-kaomoji-{mode}.svg", divider_kaomoji(c))
+
+if __name__ == "__main__":
+    for mode, c in P.items():
+        write(f"hero-{mode}.svg", hero(mode, c))
+        for label in BUTTONS:
+            write(f"btn-{label.lower()}-{mode}.svg", button(label, c))
+        for key, (label, title) in HEADERS_A.items():
+            write(f"head-{key}-{mode}.svg", header_a(label, title, c))
+        for key, title in HEADERS_C.items():
+            write(f"head-{key}-{mode}.svg", header_c(title, c))
+        write(f"div-sky-{mode}.svg", divider_sky(c))
+        write(f"div-kaomoji-{mode}.svg", divider_kaomoji(c))
