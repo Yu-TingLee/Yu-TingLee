@@ -132,11 +132,15 @@ def divider_sky(c, w=560, h=44):
         f'animation-delay:-{t * off:.1f}s"><g transform="scale({k})">{cloud(c, .9)}</g></g></g>' for y, k, t, off in flock)
     # Scattered stars: faint most of the time, each flaring briefly at its own pace.
     rng = random.Random(4)
+    n, gap = 12, 26  # stars, min px between neighbors; leftover space is split randomly
+    parts = [rng.random() for _ in range(n + 1)]
+    slack = [(w - 16 - (n - 1) * gap) * q / sum(parts) for q in parts]
+    xs = [8 + sum(slack[:i + 1]) + i * gap for i in range(n)]
     twinkles = "".join(
         f'<g transform="translate({x:.0f},{rng.uniform(5, h - 5):.0f})"><g class="gl" style="animation-duration:'
         f'{rng.uniform(8, 16):.1f}s;animation-delay:-{rng.uniform(0, 16):.1f}s">'
         f'<path d="{STAR.format(s=round(3 + 3 * rng.random() ** 2, 1))}" fill="{c["deep"]}"/></g></g>'
-        for x in [min(max(w * (i + .5 + rng.uniform(-.9, .9)) / 12, 8), w - 8) for i in range(12)])
+        for x in xs)
     # (y start, y end, delay s) within a 9s cycle; each streak is visible for ~1.6s
     streaks = [(4, 20, 0), (10, 30, 4.6)]
     stars = "".join(
