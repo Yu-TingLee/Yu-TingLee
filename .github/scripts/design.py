@@ -188,14 +188,28 @@ def divider_kaomoji(c, w=560, h=40):
 
 
 def stamp_readme():
-    """Append ?v=<content hash> to README asset links so browsers and GitHub's cache refetch changed files."""
+    """Rename README-linked assets to name.<content hash>.ext and relink.
+
+    GitHub serves README images via raw.githubusercontent.com, whose CDN ignores
+    query strings, so ?v= can't bust its cache; a new filename always does.
+    Freshly generated assets/name.ext is moved to its hashed name and older
+    hashed copies are deleted. If no fresh file exists, the link is left as is.
+    """
     readme = ROOT / "README.md"
 
     def bump(m):
-        digest = hashlib.sha1((ROOT / m[1]).read_bytes()).hexdigest()[:8]
-        return f"{m[1]}?v={digest}"
+        name, ext = m[1], m[2]
+        fresh = OUT / f"{name}.{ext}"
+        if not fresh.exists():
+            return m[0]
+        digest = hashlib.sha1(fresh.read_bytes()).hexdigest()[:8]
+        for old in OUT.glob(f"{name}.*.{ext}"):
+            old.unlink()
+        fresh.rename(OUT / f"{name}.{digest}.{ext}")
+        return f"assets/{name}.{digest}.{ext}"
 
-    readme.write_text(re.sub(r"(assets/[\w.-]+\.(?:svg|webp))(?:\?v=\w+)?", bump, readme.read_text()))
+    text = re.sub(r"assets/([\w-]+?)(?:\.[0-9a-f]{8})?\.(svg|webp)(?:\?v=\w+)?", bump, readme.read_text())
+    readme.write_text(text)
 
 
 def write(name, s):

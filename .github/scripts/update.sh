@@ -18,5 +18,5 @@ for f in $(find papers -maxdepth 1 -type f | sort | tr ' ' '\001'); do
 done
 [ -n "$pages" ] && printf "$pages" | tr '\n' '\0' | xargs -0 uv run -q --script .github/scripts/slideshow.py assets/papers.webp page
 
-uv run -q --script .github/scripts/design.py > /dev/null  # re-stamp README asset links (cache busting)
+uv run -q --script .github/scripts/design.py > /dev/null  # hash-rename README assets (cache busting)
 .github/scripts/preview.sh
