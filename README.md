@@ -26,7 +26,5 @@
 <p align="center">⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆ ~ (˶ᵔ ᵕ ᵔ˶) ⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆</p>
 
 <p align="center">
-  🌿 ~ 🪷 ~ 🌿 ~ 🫧 ~ 💧 ~ 🪷 ~ 💧 ~ 🫧 ~ 🌿 ~ 🪷 ~ 🌿<br>
-  <img src="koi/koi.gif" width="400" alt="My koi!" /><br>
-  🪷 ~ 🌿 ~ 🪨 ~ 🫧 ~ 🪷 ~ 🌊 ~ 🪷 ~ 🫧 ~ 🪨 ~ 🌿 ~ 🪷
+  <img src="koi/koi.gif" width="795" alt="My koi in its pond!" />
 </p>

@@ -21,11 +21,15 @@ jobs:
         with:
           body: platinum
           output-dir: koi
-      - name: Trim empty water around the koi
+      - uses: astral-sh/setup-uv@v10
+      - name: Trim empty water and draw the pond ring
         shell: bash
         run: |
-          sudo apt-get install -y -qq gifsicle > /dev/null
+          sudo apt-get install -y -qq gifsicle fonts-dejavu-core > /dev/null
           gifsicle --batch --crop-transparency koi/koi.gif
+          uv run -q --script .github/scripts/pond.py koi/koi.gif koi/koi.gif \
+            /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+          gifsicle --batch -O3 koi/koi.gif
       - name: Commit the koi if it changed
         shell: bash
         run: |
