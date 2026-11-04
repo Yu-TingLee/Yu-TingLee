@@ -6,7 +6,7 @@ cd "$(dirname "$0")/../.." || exit 1
 tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
 
 photos=$(find photos -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | sort)
-[ -n "$photos" ] && echo "$photos" | tr '\n' '\0' | xargs -0 python3 -I .github/scripts/slideshow.py assets/photos.webp photo
+[ -n "$photos" ] && echo "$photos" | tr '\n' '\0' | xargs -0 uv run -q --script .github/scripts/slideshow.py assets/photos.webp photo
 
 pages=""
 for f in $(find papers -maxdepth 1 -type f | sort | tr ' ' '\001'); do
@@ -16,6 +16,6 @@ for f in $(find papers -maxdepth 1 -type f | sort | tr ' ' '\001'); do
     *.png|*.jpg|*.jpeg) pages="$pages$f\n" ;;
   esac
 done
-[ -n "$pages" ] && printf "$pages" | tr '\n' '\0' | xargs -0 python3 -I .github/scripts/slideshow.py assets/papers.webp page
+[ -n "$pages" ] && printf "$pages" | tr '\n' '\0' | xargs -0 uv run -q --script .github/scripts/slideshow.py assets/papers.webp page
 
 .github/scripts/preview.sh

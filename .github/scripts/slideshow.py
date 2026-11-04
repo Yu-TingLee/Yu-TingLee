@@ -1,3 +1,8 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["pillow"]
+# ///
 """Build a crossfading WebP slideshow.
 
 usage: slideshow.py OUT.webp photo|page FILE...
@@ -41,6 +46,7 @@ def frame(p):
     return im.crop((x, y, x + side, y + side)).resize((800, 800), Image.LANCZOS)
 
 
+print(f"{out}: loading {len(srcs)} images...", flush=True)
 imgs = [frame(p) for p in srcs]
 steps = 3 if mode == "page" else 8  # text-heavy fades are costly
 frames, durs = [], []
@@ -49,6 +55,7 @@ for i, a in enumerate(imgs):
     frames.append(a); durs.append(HOLD_MS)
     for k in range(1, steps):
         frames.append(Image.blend(a, b, k / steps)); durs.append(FADE_MS // (steps - 1))
+print(f"{out}: encoding {len(frames)} frames...", flush=True)
 frames[0].save(out, save_all=True, append_images=frames[1:], duration=durs, loop=0,
-               quality=75 if mode == "page" else 85, method=6)
+               quality=75 if mode == "page" else 85, method=4)  # 6 = smaller but ~3x slower
 print(f"built {out} from {len(imgs)} images")
