@@ -21,7 +21,7 @@ jobs:
         with:
           body: platinum
           output-dir: koi
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.3.3
       - name: Trim empty water and draw the pond ring
         shell: bash
         run: |
