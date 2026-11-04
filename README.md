@@ -3,10 +3,6 @@
 </p>
 
 <p align="center">
-  <img src="koi/koi.gif" width="300" alt="My koi!" />
-</p>
-
-<p align="center">
   🫧 LLM inference & CUDA kernels & Quantum ML<br>
   💻 Python · C++ · CUDA<br>
   📷 Photography
@@ -26,5 +22,9 @@
   </tr>
 </table>
 </div>
+
+<p align="center">
+  <img src="koi/koi.gif" width="400" alt="My koi!" />
+</p>
 
 <p align="center">⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆ ~ (˶ᵔ ᵕ ᵔ˶) ⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆</p>
