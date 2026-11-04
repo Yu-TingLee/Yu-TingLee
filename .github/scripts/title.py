@@ -14,7 +14,7 @@ from pathlib import Path
 LINES = [
     "I need more tokenzzzz... (✖╭╮✖)",
     "Making LLMs go brrr on GPUs!!!",
-    "It's all just linear algebra ✨",
+    "It's all just linear algebra ✨✨✨",
 ]
 COLORS = {"dark": "FFC0A6", "light": "EC8A68"}
 TYPE_MS, HOLD_MS, DELETE_MS = 2400, 1000, 1800

@@ -49,7 +49,7 @@
         x='50%' text-anchor='middle'
         letter-spacing='normal'>
         <textPath xlink:href='#path2'>
-            It&#039;s all just linear algebra ✨
+            It&#039;s all just linear algebra ✨✨✨
         </textPath>
     </text>
 </svg><g text-anchor="middle"><text class="m" x="450.0" y="148">🫧 LLM inference · CUDA kernels · Quantum ML</text><text class="m" x="450.0" y="176">💻 Python · C++ · CUDA   📷 Photography</text></g></svg>
