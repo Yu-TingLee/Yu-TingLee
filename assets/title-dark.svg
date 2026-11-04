@@ -54,7 +54,7 @@
         x='50%' text-anchor='middle'
         letter-spacing='normal'>
         <textPath xlink:href='#path2'>
-            It&#039;s all just linear algebra ✨✨✨
+            It&#039;s all just linear algebra✨✨✨
         </textPath>
     </text>
 </svg>
