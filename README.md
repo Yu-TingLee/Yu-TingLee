@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="koi/koi.gif" width="280" alt="My koi!" />
+  <img src="koi/koi.gif" width="400" alt="My koi!" />
 </p>
 
 <p align="center">
