@@ -23,8 +23,10 @@
 </table>
 </div>
 
-<p align="center">
-  <img src="koi/koi.gif" width="400" alt="My koi!" />
-</p>
-
 <p align="center">⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆ ~ (˶ᵔ ᵕ ᵔ˶) ⋆｡ﾟ☁︎｡⋆｡ ﾟ☾ ﾟ｡⋆</p>
+
+<p align="center">
+  🌿 ~ 🪷 ~ 🌿 ~ 🫧 ~ 💧 ~ 🪷 ~ 💧 ~ 🫧 ~ 🌿 ~ 🪷 ~ 🌿<br>
+  <img src="koi/koi.gif" width="400" alt="My koi!" /><br>
+  🪷 ~ 🌿 ~ 🪨 ~ 🫧 ~ 🪷 ~ 🌊 ~ 🪷 ~ 🫧 ~ 🪨 ~ 🌿 ~ 🪷
+</p>
