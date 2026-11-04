@@ -1,5 +1,7 @@
 ## Hi there 👋
 
+<img src="koi/koi.gif" width="256" alt="My koi" />
+
 <!--
 **Yu-TingLee/Yu-TingLee** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
