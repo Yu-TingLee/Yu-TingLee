@@ -125,8 +125,8 @@ def cloud(c, opacity=.85):
 def divider_sky(c, w=560, h=44):
     """Clouds drifting over scattered twinkling stars, with shooting stars streaking past now and then."""
     # (y, scale, seconds per crossing, start offset as fraction of crossing)
-    flock = [(13, 1.0, 39, 0), (31, .75, 51, .17), (20, .6, 45, .33),
-             (29, .9, 57, .5), (11, .7, 42, .67), (24, 1.1, 60, .83)]
+    flock = [(13, 1.0, 39, 0), (31, .75, 51, .2), (20, .65, 45, .4),
+             (29, .9, 57, .6), (11, 1.1, 60, .8)]
     clouds = "".join(
         f'<g transform="translate(0,{y})"><g class="fly" style="animation-duration:{t}s;'
         f'animation-delay:-{t * off:.1f}s"><g transform="scale({k})">{cloud(c, .9)}</g></g></g>' for y, k, t, off in flock)
