@@ -4,3 +4,4 @@
 *.JPEG
 *.pdf
 /*.png
+.DS_Store
