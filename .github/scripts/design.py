@@ -19,8 +19,8 @@ OUT = ROOT / "assets"
 
 # Keep in sync with title.py COLORS and the snake workflow.
 P = {
-    "light": dict(accent="#F49A78", deep="#CF5F3E", soft="#FFEAE1", ink="#4A3530", muted="#957D74", bg="#FFFFFF"),
-    "dark":  dict(accent="#FFBBA0", deep="#FF9E80", soft="#3B231C", ink="#F5E5DF", muted="#A8918A", bg="#0D1117"),
+    "light": dict(accent="#F49A78", deep="#CF5F3E", soft="#FFEAE1", ink="#4A3530", sub="#4A3530", muted="#957D74", bg="#FFFFFF"),
+    "dark":  dict(accent="#FFBBA0", deep="#FF9E80", soft="#3B231C", ink="#F5E5DF", sub="#D6C4BD", muted="#A8918A", bg="#0D1117"),
 }
 HERO_LINES = ["🫧 LLM inference · CUDA kernels · Quantum ML", "💻 Python · C++ · CUDA   📷 Photography"]
 BUTTONS = ["LinkedIn", "Email"]
@@ -97,7 +97,7 @@ def hero(mode, c):
                ".b3{animation:f1 22s ease-in-out infinite reverse}"
                "@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,18px)}}"
                "@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-14px)}}"
-               + MONO + f".m{{font-family:CM,monospace;font-size:16px;fill:{c['ink']}}}",
+               + MONO + f".m{{font-family:CM,monospace;font-size:16px;fill:{c['sub']}}}",
                f'<defs><radialGradient id="bg" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="{c["soft"]}"/>'
                f'<stop offset="1" stop-color="{c["bg"]}"/></radialGradient>'
                f'<filter id="bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45"/></filter>'
