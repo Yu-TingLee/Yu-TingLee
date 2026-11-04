@@ -33,3 +33,10 @@
 <p align="center">
   <img src="koi/koi.gif" width="795" alt="My koi in its pond!" />
 </p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Yu-TingLee/Yu-TingLee/output/snake-dark.svg" />
+    <img src="https://raw.githubusercontent.com/Yu-TingLee/Yu-TingLee/output/snake-light.svg" width="795" alt="Snake eating my contribution graph" />
+  </picture>
+</p>
