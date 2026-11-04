@@ -31,7 +31,3 @@
     <img src="https://raw.githubusercontent.com/Yu-TingLee/Yu-TingLee/output/snake-light.svg" width="795" alt="Snake eating my contribution graph" />
   </picture>
 </p>
-
-<p align="center">
-  <img src="koi/koi.gif" width="795" alt="My koi in its pond!" />
-</p>

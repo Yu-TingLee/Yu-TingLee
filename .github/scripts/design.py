@@ -8,6 +8,7 @@ GitHub renders them identically everywhere. The hero wraps assets/title-*.svg,
 so run title.py first if the title lines or colors change.
 """
 import base64
+import random
 import re
 import urllib.request
 from pathlib import Path
@@ -120,12 +121,20 @@ def cloud(c, opacity=.85):
 
 
 def divider_sky(c, w=560, h=44):
-    """Clouds drifting across, with shooting stars streaking past now and then."""
+    """Clouds drifting over scattered twinkling stars, with shooting stars streaking past now and then."""
     # (y, scale, seconds per crossing, start offset as fraction of crossing)
-    flock = [(13, 1.0, 26, 0), (31, .75, 34, .3), (16, .6, 30, .55), (29, .9, 38, .75), (12, .7, 28, .9)]
+    flock = [(13, 1.0, 26, 0), (31, .75, 34, .17), (20, .6, 30, .33),
+             (29, .9, 38, .5), (11, .7, 28, .67), (24, 1.1, 40, .83)]
     clouds = "".join(
         f'<g transform="translate(0,{y})"><g class="fly" style="animation-duration:{t}s;'
         f'animation-delay:-{t * off:.1f}s"><g transform="scale({k})">{cloud(c, .9)}</g></g></g>' for y, k, t, off in flock)
+    # Scattered stars: faint most of the time, each flaring briefly at its own pace.
+    rng = random.Random(4)
+    twinkles = "".join(
+        f'<g transform="translate({x:.0f},{rng.uniform(5, h - 5):.0f})"><g class="gl" style="animation-duration:'
+        f'{rng.uniform(8, 16):.1f}s;animation-delay:-{rng.uniform(0, 16):.1f}s">'
+        f'<path d="{STAR.format(s=round(1.5 + 5 * rng.random() ** 2, 1))}" fill="{c["deep"]}"/></g></g>'
+        for x in [w * (i + rng.uniform(.2, .8)) / 16 for i in range(16)])
     # (y start, y end, delay s) within a 9s cycle; each streak is visible for ~1.6s
     streaks = [(4, 20, 0), (10, 30, 4.6)]
     stars = "".join(
@@ -135,6 +144,8 @@ def divider_sky(c, w=560, h=44):
     css = (f"@keyframes fly{{from{{transform:translateX(-30px)}}to{{transform:translateX({w + 30}px)}}}}"
            ".fly{animation:fly linear infinite}"
            ".sh{animation:sh0 9s ease-in infinite;opacity:0}"
+           "@keyframes gl{0%,45%,100%{opacity:.2;transform:scale(.7)}72%{opacity:1;transform:scale(1.1)}}"
+           ".gl{animation:gl ease-in-out infinite;transform-box:fill-box;transform-origin:center}"
            + "".join(f"@keyframes sh{i}{{0%{{transform:translate(-20px,{y0}px) rotate(2deg);opacity:0}}3%{{opacity:1}}"
                      f"18%{{transform:translate({w * .85:.0f}px,{y1}px) rotate(2deg);opacity:0}}100%{{opacity:0}}}}"
                      for i, (y0, y1, _) in enumerate(streaks)))
@@ -144,7 +155,7 @@ def divider_sky(c, w=560, h=44):
             f'<mask id="em"><rect width="{w}" height="{h}" fill="url(#eg)"/></mask>'
             f'<linearGradient id="sg"><stop offset="0" stop-color="{c["deep"]}" stop-opacity="0"/>'
             f'<stop offset="1" stop-color="{c["deep"]}"/></linearGradient></defs>')
-    return svg(w, h, css, defs + f'<g mask="url(#em)">{clouds}{stars}</g>')
+    return svg(w, h, css, defs + f'<g mask="url(#em)">{twinkles}{clouds}{stars}</g>')
 
 
 def divider_kaomoji(c, w=560, h=40):
