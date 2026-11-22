@@ -1,5 +1,5 @@
 <p align="center">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.68a8f4ea.svg" /><img src="assets/hero-light.f4c18185.svg" width="795" alt="I need more tokenzzzz... (✖╭╮✖) · LLM inference, CUDA kernels, Quantum ML · Python, C++, CUDA · Photography" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.38da55e2.svg" /><img src="assets/hero-light.597f701a.svg" width="795" alt="I need more tokenzzzz... (✖╭╮✖) · LLM inference, CUDA kernels · Python, C++, CUDA · Photography" /></picture>
 </p>
 
 <p align="center">

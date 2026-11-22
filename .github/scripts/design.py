@@ -22,7 +22,7 @@ P = {
     "light": dict(accent="#F49A78", deep="#CF5F3E", soft="#FFEAE1", ink="#4A3530", sub="#4A3530", muted="#957D74", bg="#FFFFFF"),
     "dark":  dict(accent="#FFBBA0", deep="#FF9E80", soft="#3B231C", ink="#F5E5DF", sub="#D6C4BD", muted="#A8918A", bg="#0D1117"),
 }
-HERO_LINES = ["🫧 LLM inference · CUDA kernels · Quantum ML", "💻 Python · C++ · CUDA   📷 Photography"]
+HERO_LINES = ["🫧 LLM inference · CUDA kernels", "💻 Python · C++ · CUDA   📷 Photography"]
 BUTTONS = ["LinkedIn", "Email"]
 HEADERS_A = {"writing": ("writing", "Thoughts unbounded"), "photos": ("photography", "Catching light")}
 HEADERS_C = {"snack": "Snacking on commits"}
